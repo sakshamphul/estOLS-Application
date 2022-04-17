@@ -4,7 +4,7 @@
 #include <chrono>
 #include <stdlib.h>
 #include "invert.hh"
-
+#include <thread>
 extern "C" {
 #include "gsl/gsl_matrix_float.h"
 #include <gsl/gsl_linalg.h>
@@ -12,23 +12,36 @@ extern "C" {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //!
-    //! @brief 
+    //! @brief This file contains the main function that control the flow of this application
     //! @author Saksham Phul
     //!
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
+void help_function()
+{
+  std::cout<<"Flags that help run this application are as follows:\n";
+  std::cout<<"-help - will provide essential important to run this application. \n";
+  std::cout<<"-x: takes a filename name as a input and set up the X matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
+    std::cout<<"-y: takes a filename name as a input and set up the Y matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
+    std::cout<<" -size_n: provide the number of rows for matrix X and Y \n";
+    std::cout<<" -size_m: provide the number of columns for matrix X \n";
+}
+
+
 int main(int arg, char *argc[])
 {
+     
      size_t n;
      size_t m;
      char* str_X;
      char* str_Y;
      if(arg<9){
-		   if(strcmp(argc[1],"-help")==0){
-			  std::cout<<" -x flags sets vector of was \n";
+       
+		   if(arg==1 || strcmp(argc[1],"-help")==0){
+		     help_function();
 		    }
 		   else{
-		   std::cout<<"Provide all the required flags"<<std::endl;
+		   std::cout<<"Provide all the required flags or use -help flag to call for more information "<<std::endl;
 		   }
 		   return 0;		   
 	    }
@@ -77,6 +90,7 @@ int main(int arg, char *argc[])
     }	
  //    printf("Original matrix:\n");
 //    printf("X is \n");
+//    std::thread th(print_matrix,X,n,m);
  //   print_matrix(X,n,m);
 //    printf("Y is \n");
  //   print_matrix(Y,n,1);
@@ -106,7 +120,7 @@ int main(int arg, char *argc[])
     gsl_matrix *C = gsl_matrix_alloc(m, 1);
     //multiply    C= A * B
     gsl_blas_dgemm(CblasNoTrans,CblasNoTrans,1.0,inverse,B,0.0,C);
-  
+//    th.join();
     gsl_matrix_free(inverse);
     gsl_matrix_free(B);
     auto stop = std::chrono::high_resolution_clock::now();
