@@ -47,8 +47,12 @@ Let's link our library with GNU using following command:
 
 linking with shared library requires path to excutalble to run,therefore, 
 Before we run our application we must provide workstation with new LD_Library_Path to look for runtime libraries. You can either set up LD_LIBRARY_PATH in your bash profile or just set up variable for current terminal session:
- To setup LD_LIBRARY_Path for 
-export LD_LIBRARY_Path=/ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/lib/
+ To setup LD_LIBRARY_Path for current terminal session:
+     export LD_LIBRARY_Path=/ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/lib/
+To add this session to your profile, navigate and open .bashrc file 
+     vi /etc/.bashrc
+You would require root access to update .bashrc file.
 
-echo $LD_LIBRARY_Path
- remind user to drop the path directly into profile file
+Add following at the end of the .bashrc file
+ 
+ export LD_LIBRARY_Path=/ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/lib/
