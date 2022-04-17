@@ -1,9 +1,9 @@
 # Ordinary least square (estOLS-Application)
 This application calculates the ordinary least squares estimates from matrix vector operations using GNU scientific library. The equation is as follows:
 
-**Download GSL - GNU scientific Library:** https://www.gnu.org/software/gsl/
+**GNU scientific Library:** https://www.gnu.org/
 
-Version 0.9.4.
+Version 1.0.0
 
 ## Installation
 
@@ -17,39 +17,38 @@ cd into gsl-2.*.* folder to install and create binaries to run our application
 
      cd gsl-2.*.*/
 
-make required
-
-Let's configure the GNU library for your workstation before installation:
+Configure the GNU library for our workstation before installation:
 
     ./configure --prefix={absolute_path_to_installation_folder}
 
-Now,Let's compile the library to generate binaries:
+Now, compile the library to generate binaries:
 
      make 
 
-Installation will write files to {absolute_path_to_installation_folder}. Therefore,write permissions are required. 
+Installation will write files to {absolute_path_to_installation_folder}. Therefore, write permissions are required to run following command: 
 
     make install
 
 GNU installation is complete
 
-Let's create a folder and clone estOLS respo: 
+Create a folder and clone estOLS respo: 
 
     git clone https://github.com/sakshamphul/estOLS-Application
 
-Let's compile main.cc file with a path to GNU library to find the header files
+Compile main.cc file with a path to GNU library include folder to find the header files used in main.cc
 
     g++ -std=c++11 -c -pthread -O3 -I {absolute_path_to_installation_folder}/include/  main.cc
 
-Let's link our library with GNU using following command:
+Link our library with GNU libraries using following command:
 
     g++ -std=c++11 -pthread -L{absolute_path_to_installation_folder}/lib/ main.o -lgsl -lgslcblas -lm
 
-linking with shared library requires path to excutalble to run,therefore, 
-Before we run our application we must provide workstation with new LD_Library_Path to look for runtime libraries. You can either set up LD_LIBRARY_PATH in your bash profile or just set up variable for current terminal session:
- 
+linking application with shared library requires path by application excutable to run. Therefore, before we run our application we must provide workstation with new LD_Library_Path to look for runtime libraries(shared libraries). You can either set up LD_LIBRARY_PATH in our bash profile or simply set up variable for current terminal session: 
+
 To setup LD_LIBRARY_Path for current terminal session:
-     export LD_LIBRARY_Path=/ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/lib/
+ 
+    export LD_LIBRARY_Path=/ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/lib/
+
 To add this session to your profile, navigate and open .bashrc file 
     
     vi /etc/.bashrc
@@ -58,3 +57,20 @@ You would require root access to update .bashrc file.
 Add following line at the end of the .bashrc file
  
     export LD_LIBRARY_Path=/ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/lib/
+    
+**Usage**
+
+It's a executable based appilication therefore just requires estOLS exe to run OLS computation.
+
+To call for help use -help flag
+
+     estOLS -help
+     
+To run OLS computation
+
+     estOLS -x FILENAME_X_MATRIX -Y FILENAME_Y_MATRIX -size_n INT -size_m INT
+
+To run OLS computation with randomly set values for matrix X and Y, replace FILENAME with "random" keyword:
+
+      estOLS -x random -Y random -size_n INT -size_m INT
+    
