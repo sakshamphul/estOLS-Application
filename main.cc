@@ -17,16 +17,18 @@ extern "C" {
     //!
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void help_function()
+void help_function(const int carry)
 {
-  std::cout<<"Flags that help run this application are as follows:\n";
-  std::cout<<"-help - will provide essential important to run this application. \n";
-  std::cout<<"-x: takes a filename name as a input and set up the X matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
-    std::cout<<"-y: takes a filename name as a input and set up the Y matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
-    std::cout<<" -size_n: provide the number of rows for matrix X and Y \n";
-    std::cout<<" -size_m: provide the number of columns for matrix X \n";
+  	//std::cout<<"Version 1.0.0 \n @copyright: Saksham Phul \n Git repo: https://github.com/sakshamphul/estOLS-Application \n";
+  	std::cout<<"Flags that help run this application are as follows:\n";
+  	std::cout<<"-help:will provide essential details to run this application. \n";
+	if(carry==1){
+	  	std::cout<<"-x: takes a filename name as a input and set up the X matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
+    		std::cout<<"-y: takes a filename name as a input and set up the Y matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
+    		std::cout<<"-size_n: provide the number of rows for matrix X and Y \n";
+    		std::cout<<"-size_m: provide the number of columns for matrix X \n";
+	}
 }
-
 
 int main(int arg, char *argc[])
 {
@@ -35,11 +37,13 @@ int main(int arg, char *argc[])
      size_t m;
      char* str_X;
      char* str_Y;
+     std::cout<<"Version 1.0.0 \n @copyright: Saksham Phul \n Git repo: https://github.com/sakshamphul/estOLS-Application \n" ;
      if(arg<9){
        
-		   if(arg==1 || strcmp(argc[1],"-help")==0){
-		     help_function();
-		    }
+		   if(arg==1)
+		     help_function(0);
+		   else if (strcmp(argc[1],"-help")==0) 
+			help_function(1);		   
 		   else{
 		   std::cout<<"Provide all the required flags or use -help flag to call for more information "<<std::endl;
 		   }
