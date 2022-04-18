@@ -1,9 +1,9 @@
-#gcc -Wall -c -I /ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/include/ invert.c 
+#!/bin/bash
 
-g++ -std=c++11 -c -O3 -I /ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/include/  main.cc
-g++ -std=c++11 -L/ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/lib/ main.o -lgsl -lgslcblas -lm -o estOLS
+g++ -std=c++11 -O3 -c -I /home/saksham/Desktop/test/gsl-2.7.1/gsl-bin/include/  main.cc
 
-#gcc -L/ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/lib/ invert.o -lgsl -lgslcblas -lm
+g++ -std=c++11 -L/home/saksham/Desktop/test/gsl-2.7.1/gsl-bin/lib/ main.o -lgsl -lgslcblas -lm -o estOLS
+
 
 
 

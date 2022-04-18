@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <chrono>
 #include <stdlib.h>
-#include "invert.hh"
+#include "main.hh"
 #include <thread>
 extern "C" {
 #include "gsl/gsl_matrix_float.h"
@@ -19,14 +19,15 @@ extern "C" {
 
 void help_function(const int carry)
 {
-  	//std::cout<<"Version 1.0.0 \n @copyright: Saksham Phul \n Git repo: https://github.com/sakshamphul/estOLS-Application \n";
-  	std::cout<<"Flags that help run this application are as follows:\n";
-  	std::cout<<"-help:will provide essential details to run this application. \n";
+  	std::cout<<"-help: will provide essential details to run this application \n";
 	if(carry==1){
-	  	std::cout<<"-x: takes a filename name as a input and set up the X matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
+	  	std::cout<<"Flags that will help run this application are as follows:\n";
+		std::cout<<"-x: takes a filename name as a input and set up the X matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
     		std::cout<<"-y: takes a filename name as a input and set up the Y matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
     		std::cout<<"-size_n: provide the number of rows for matrix X and Y \n";
     		std::cout<<"-size_m: provide the number of columns for matrix X \n";
+                std::cout<<"-o: provide the name of file to store the output. You can also use display keyword to print final output on the screen. For example -o display \n";
+                std::cout<<"Command line format: ./estOLS -x X_file -y Y_file -size_n 10000 -size_m 500 -o result \n";
 	}
 }
 
@@ -37,9 +38,9 @@ int main(int arg, char *argc[])
      size_t m;
      char* str_X;
      char* str_Y;
-     std::cout<<"Version 1.0.0 \n @copyright: Saksham Phul \n Git repo: https://github.com/sakshamphul/estOLS-Application \n" ;
-     if(arg<9){
-       
+     char* str_OUT;
+     std::cout<<"Version 1.0.0 estOlS application\n @copyright: Saksham Phul \n Git repo: https://github.com/sakshamphul/estOLS-Application \n" ;
+     if(arg<11){       
 		   if(arg==1)
 		     help_function(0);
 		   else if (strcmp(argc[1],"-help")==0) 
@@ -49,9 +50,8 @@ int main(int arg, char *argc[])
 		   }
 		   return 0;		   
 	    }
-         
      for(int i(0);i<arg;++i)
-	{ //std::cout<<arg<<" "<<argc[i]<<std::endl;
+	{
 		    if(strcmp(argc[i],"-size_n")==0){
 			  n=atoi(argc[i+1]);
 		    }
@@ -63,82 +63,75 @@ int main(int arg, char *argc[])
 			  }
 		    else if(strcmp(argc[i],"-y")==0){
 					str_Y=argc[i+1];
-			  }	  
+			}
+		    else if(strcmp(argc[i],"-o")==0){
+                                        str_OUT=argc[i+1];
+			 }	  
 	}
     
      gsl_matrix *X = gsl_matrix_alloc(n, m);
      gsl_matrix *Y = gsl_matrix_alloc(n, 1);
-    
-//     if( (!str_X && !str_Y) ){
-//				  if(strcmp(str_X,"random")!=0 && strcmp(str_Y,"random")!=0){
-//						 std::cout<<"Provide data for matrics computation using -x and -m flags"<<std::endl;
-//		     std::cout<<"You can either provide name with -x , -y flags or choose random mode to generate the data randomly"<<std::endl;
-//		    return 0;
-//				  }
-      
-						
+   
     if(strcmp(str_X,"random")==0){
-//		  printf("X is random \n");
+		  std::cout<<"X gets random float values \n";
 	    fill_random_matrix(X,n,m);   
     }
     else{
+	std::cout<<"Reading X from file "<<str_X<<"\n";
 	if(!read_file(X,str_X)){ return 0;}
     }	
     
     if (strcmp(str_Y,"random")==0){
-//		  printf("Y is random \n");
+		  std::cout<<"Y gets random float values \n";
 	    fill_random_matrix(Y,n,1);
     }
     else{
+          std::cout<<"Reading Y from file "<<str_Y<<"\n";
 	if(!read_file(Y,str_Y)){ return 0;}
-    }	
- //    printf("Original matrix:\n");
-//    printf("X is \n");
-//    std::thread th(print_matrix,X,n,m);
- //   print_matrix(X,n,m);
-//    printf("Y is \n");
- //   print_matrix(Y,n,1);
-    write_file(X); 
-    
+    }
+
     auto start = std::chrono::high_resolution_clock::now();
     gsl_matrix *A = gsl_matrix_alloc(m, m);
     //multiply    A= Xtranspose * X
     gsl_blas_dgemm(CblasTrans,CblasNoTrans,1.0,X,X,0.0,A);
-    
     auto start_in = std::chrono::high_resolution_clock::now();
-     
+
+    auto duration =std::chrono::duration_cast<std::chrono::seconds>(start_in-start);
+    std::cout<<" Computation of X(T)*X completed in time "<<duration.count()<<" seconds"<<std::endl;
     gsl_matrix *inverse = invert_a_matrix(A,m);
     gsl_matrix_free(A);
-    
     auto stop_in = std::chrono::high_resolution_clock::now();
+    duration =std::chrono::duration_cast<std::chrono::seconds>(stop_in-start_in);
+    std::cout<<" Inverse of X(T)*X completed in time "<<duration.count()<<" seconds"<<std::endl;
+
     gsl_matrix *B = gsl_matrix_alloc(m, 1);
     //multiply    B= Xtranspose * Y
     gsl_blas_dgemm(CblasTrans,CblasNoTrans,1.0,X,Y,0.0,B);
     
     auto stop_B = std::chrono::high_resolution_clock::now();
-    
+
+    duration =std::chrono::duration_cast<std::chrono::seconds>(stop_B-stop_in);
+    std::cout<<" Computation of X(T)*Y completed in time "<<duration.count()<<" seconds"<<std::endl;
+
     gsl_matrix_free(X);
     gsl_matrix_free(Y);
-    
-    //print_matrix(B,m,1);
+   
     gsl_matrix *C = gsl_matrix_alloc(m, 1);
     //multiply    C= A * B
     gsl_blas_dgemm(CblasNoTrans,CblasNoTrans,1.0,inverse,B,0.0,C);
-//    th.join();
+
     gsl_matrix_free(inverse);
     gsl_matrix_free(B);
     auto stop = std::chrono::high_resolution_clock::now();
-    auto duration =std::chrono::duration_cast<std::chrono::seconds>(stop-start);
-    auto duration_in =std::chrono::duration_cast<std::chrono::seconds>(stop_in-start_in);
-    auto duration_B =std::chrono::duration_cast<std::chrono::seconds>(stop_in-stop_B);
-    auto duration_first =std::chrono::duration_cast<std::chrono::seconds>(start_in-start);
+    duration =std::chrono::duration_cast<std::chrono::seconds>(stop-stop_B);
+    std::cout<<" Computation of inverse(XT*X)*Y completed in time "<<duration.count()<<" seconds"<<std::endl;
+    duration =std::chrono::duration_cast<std::chrono::seconds>(stop-start);
+    std::cout<<" Total time is "<<duration.count()<<" seconds"<<std::endl;
     
-    std::cout<<"Total time is "<<duration.count()<<" seconds"<<std::endl;
-    std::cout<<"Inverse time is "<<duration_in.count()<<" seconds"<<std::endl;
-    std::cout<<"A comp time is "<<duration_first.count()<<" seconds"<<std::endl;
-    std::cout<<"B comp time is "<<duration_B.count()<<" seconds"<<std::endl;
-    
-    write_file(C);
+	if(strcmp(str_OUT,"display")==0)
+	   print_matrix(C);
+	else	
+	   print_matrix_in_file(C,str_OUT);
     gsl_matrix_free(C);
     return 0;
 }
