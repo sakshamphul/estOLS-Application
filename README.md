@@ -68,10 +68,10 @@ To call for help use -help flag
      
 To run OLS computation
 
-     estOLS -x FILENAME_X_MATRIX -Y FILENAME_Y_MATRIX -size_n INT -size_m INT
+     estOLS -x FILENAME_X_MATRIX -Y FILENAME_Y_MATRIX -size_n INT -size_m INT -o display
 
 To run OLS computation with randomly set values for matrix X and Y, replace FILENAME with "random" keyword:
 
-      estOLS -x random -Y random -size_n INT -size_m INT
+      estOLS -x random -Y random -size_n INT -size_m INT -o output_filename
     
-Output is stored in the file "result" that contains the estimate beta with dimension m x 1
+Output matrix is stored in the file given in -o flag. You can also print the output on the terminal by using display keyword.
