@@ -74,3 +74,4 @@ To run OLS computation with randomly set values for matrix X and Y, replace FILE
 
       estOLS -x random -Y random -size_n INT -size_m INT
     
+Output is stored in the file "result" that contains the estimate beta with dimension m x 1
