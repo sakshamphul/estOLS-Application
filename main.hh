@@ -38,63 +38,89 @@ bool read_file(gsl_matrix *C,char str[]){
 
 void print_matrix(gsl_matrix *matrix)
 {
-    size_t i=matrix->size1; 
-    size_t j=matrix->size2;
-    float element;
+	    size_t i=matrix->size1; 
+	    size_t j=matrix->size2;
+	    float element;
 
-    for (unsigned int ii = 0; ii < i; ++ii) {
-        for (unsigned int jj = 0; jj < j; ++jj) {
-            element = gsl_matrix_get(matrix, ii, jj);
-            printf("%f ", element);
-        }
-        printf("\n");
-    }
+	    for (unsigned int ii = 0; ii < i; ++ii) {
+			  for (unsigned int jj = 0; jj < j; ++jj) {
+					element = gsl_matrix_get(matrix, ii, jj);
+					printf("%f ", element);
+			  }
+	    printf("\n");
+	    }
 }
+
 void print_matrix_in_file(gsl_matrix *matrix,char filename[])
 {
-    std::ofstream file;
-    file.open(filename);
+	    std::ofstream file;
+	    file.open(filename);
     
-    size_t i=matrix->size1; 
-    size_t j=matrix->size2;
-    float element;
+	    size_t i=matrix->size1; 
+	    size_t j=matrix->size2;
+	    float element;
 
-   std::cout<<"printing matrix to a file"<<std::endl;
-    for (unsigned int ii = 0; ii < i; ++ii) {
-       for (unsigned int jj = 0; jj < j; ++jj) {
-            element = gsl_matrix_get(matrix, ii, jj);
-            file<<element;
-        }
-        file<<"\n";
-    }
+	    std::cout<<"Writing matrix to "<<filename<<std::endl;
+	    for (unsigned int ii = 0; ii < i; ++ii) {
+			  for (unsigned int jj = 0; jj < j; ++jj) {
+					element = gsl_matrix_get(matrix, ii, jj);
+					file<<element;
+					file<<"\t";
+			  }
+		file<<"\n";
+	    }
  file.close();
+}
+
+bool read_matrix_from_file(gsl_matrix *matrix,char filename[],size_t n,size_t m)
+{
+	    std::ifstream file(filename);
+	    float element;
+	    if(!file.fail()){
+			  std::cout<<"Reading matrix from "<<filename<<std::endl;
+			  for (unsigned int ii = 0; ii < n; ++ii) {
+					for (unsigned int jj = 0; jj < m; ++jj) {
+						    //element = gsl_matrix_get(matrix, ii, jj);
+						    file>>element;
+						    //std::cout<<element;
+						    gsl_matrix_set(matrix, ii, jj,element);
+					}
+        //file<<"\n";
+			  }
+			  return true;
+	    }
+	    else
+	    {
+			  std::cout<<"Input file "<<filename<<" not found! "<<"\n";
+			  return false;
+	    }
+	    file.close();
 }
 
 
 void fill_random_matrix(gsl_matrix *matrix,size_t n,size_t m)
 {
-    size_t i, j;
-    float random;
-    float range = 1.0 * RAND_MAX;
-    for (i = 0; i < n; ++i) {
-        for (j = 0; j < m; ++j) {
-            random = rand() / range;
-    
-            gsl_matrix_set(matrix, i, j, random);
+	    size_t i, j;
+	    float random;
+	    float range = 1.0 * RAND_MAX;
+	    for (i = 0; i < n; ++i) {
+			  for (j = 0; j < m; ++j) {
+					random = rand() / range;
+					gsl_matrix_set(matrix, i, j, random);
 
-        }
-    }
+			  }
+	    }
 }	
 gsl_matrix *invert_a_matrix(gsl_matrix *matrix,size_t size)
 {
-    gsl_permutation *p = gsl_permutation_alloc(size);
-    int s;
+	    gsl_permutation *p = gsl_permutation_alloc(size);
+	    int s;
     // compute the LU decomposition
-    gsl_linalg_LU_decomp(matrix, p, &s);
+	    gsl_linalg_LU_decomp(matrix, p, &s);
     // compute the  inverse of the LU decomposition
-    gsl_matrix *inverse = gsl_matrix_alloc(size, size);
+	    gsl_matrix *inverse = gsl_matrix_alloc(size, size);
     // compute the LU inverse
-    gsl_linalg_LU_invert(matrix, p, inverse);
-    gsl_permutation_free(p);
-    return inverse;
+	    gsl_linalg_LU_invert(matrix, p, inverse);
+	    gsl_permutation_free(p);
+	    return inverse;
 }
