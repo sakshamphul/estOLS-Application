@@ -1,4 +1,4 @@
-# Ordinary least square (estOLS-Application: C++ based command line application)
+# estOLS-Application: A C/C++ based command line application for hpc application to compute ordinary least square)
 This application calculates the ordinary least squares estimates from matrix vector operations using GNU scientific library. The equation is as follows:
 
 **GNU scientific Library:** https://www.gnu.org/
