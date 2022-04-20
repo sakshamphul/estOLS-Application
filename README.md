@@ -1,4 +1,4 @@
-# Ordinary least square (estOLS-Application)
+# Ordinary least square (estOLS-Application: C++ based command line application)
 This application calculates the ordinary least squares estimates from matrix vector operations using GNU scientific library. The equation is as follows:
 
 **GNU scientific Library:** https://www.gnu.org/
@@ -37,30 +37,33 @@ Create a folder and clone estOLS respo:
 
 Compile main.cc file with a path to GNU library include folder to find the header files used in main.cc
 
-    g++ -std=c++11 -c -pthread -O3 -I {absolute_path_to_installation_folder}/include/  main.cc
+    g++ -std=c++11 -c -O3 -I {absolute_path_to_installation_folder}/include/  main.cc
 
 Link our library with GNU libraries using following command:
 
-    g++ -std=c++11 -pthread -L{absolute_path_to_installation_folder}/lib/ main.o -lgsl -lgslcblas -lm
+    g++ -std=c++11 -L{absolute_path_to_installation_folder}/lib/ main.o -lgsl -lgslcblas -lm
 
-linking application with shared library requires path by application excutable to run. Therefore, before we run our application we must provide workstation with new LD_Library_Path to look for runtime libraries(shared libraries). You can either set up LD_LIBRARY_PATH in our bash profile or simply set up variable for current terminal session: 
+linking application with shared library requires path by application excutable during runtime. Therefore, before we run our application we must provide our workstation with new LD_Library_Path to look for runtime libraries(shared libraries). You can either set up LD_LIBRARY_PATH in your bash profile or simply set up variable for current terminal session: 
 
 To setup LD_LIBRARY_Path for current terminal session:
  
     export LD_LIBRARY_Path=/ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/lib/
 
-To add this session to your profile, navigate and open .bashrc file 
+To add this session to your profile, navigate and open .bashrc file This is optional 
     
-    vi /etc/.bashrc
+    sudo vi /etc/.bashrc
 
 You would require root access to update .bashrc file.
 Add following line at the end of the .bashrc file
  
     export LD_LIBRARY_Path=/ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/lib/
     
-**Usage**
+run bashrc file to update your changes
+    source /etc/.bashrc
+    
+**estOLS: A C++ based command line application**
 
-It's a executable based appilication therefore just requires estOLS exe to run OLS computation.
+It's a pre compiled application. Hence, all you need is estOLS executable to run it.
 
 To call for help use -help flag
 
@@ -72,6 +75,6 @@ To run OLS computation
 
 To run OLS computation with randomly set values for matrix X and Y, replace FILENAME with "random" keyword:
 
-      estOLS -x random -Y random -size_n INT -size_m INT -o output_filename
+     estOLS -x random -Y random -size_n INT -size_m INT -o output_filename
     
 Output matrix is stored in the file given in -o flag. You can also print the output on the terminal by using display keyword.
