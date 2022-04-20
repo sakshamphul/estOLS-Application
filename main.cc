@@ -1,12 +1,10 @@
 #include <iostream>
 #include <fstream>
-#include <stdio.h>
 #include <chrono>
-#include <stdlib.h>
 #include "main.hh"
-#include <thread>
+
 extern "C" {
-#include "gsl/gsl_matrix_float.h"
+#include <gsl/gsl_matrix_float.h>
 #include <gsl/gsl_linalg.h>
 
 }
@@ -14,22 +12,9 @@ extern "C" {
     //!
     //! @brief This file contains the main function that control the flow of this application
     //! @author Saksham Phul
-    //!
+    //! @copyright Saksham Phul
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void help_function(const int carry)
-{
-  	std::cout<<"-help: will provide essential details to run this application \n";
-	if(carry==1){
-	  	std::cout<<"Flags that will help run this application are as follows:\n";
-		std::cout<<"-x: takes a filename name as a input and set up the X matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
-    		std::cout<<"-y: takes a filename name as a input and set up the Y matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
-    		std::cout<<"-size_n: provide the number of rows for matrix X and Y \n";
-    		std::cout<<"-size_m: provide the number of columns for matrix X \n";
-            std::cout<<"-o: provide the name of file to store the output. You can also use display keyword to print final output on the screen. For example -o display \n";
-            std::cout<<"Command line format: ./estOLS -x X_file -y Y_file -size_n 10000 -size_m 500 -o result \n";
-	}
-}
 
 int main(int arg, char *argc[])
 {
@@ -39,14 +24,14 @@ int main(int arg, char *argc[])
      char* str_X;
      char* str_Y;
      char* str_OUT;
-     std::cout<<"Version 1.0.0 estOlS application\n @copyright: Saksham Phul \n Git repo: https://github.com/sakshamphul/estOLS-Application \n" ;
+     std::cout<<" Version 1.0.0 estOlS application\n @copyright: Saksham Phul \n Git repo: https://github.com/sakshamphul/estOLS-Application \n" ;
      if(arg<11){       
 		   if(arg==1)
 			  help_function(0);
 		   else if (strcmp(argc[1],"-help")==0) 
 			  help_function(1);		   
 		   else{
-			  std::cout<<"Provide all the required flags or use -help flag to call for more information "<<std::endl;
+			  std::cout<<" Provide all the required flags or use -help flag to call for more information "<<std::endl;
 		   }
 		   return 0;		   
 	    }
@@ -77,20 +62,20 @@ int main(int arg, char *argc[])
    
     if(strcmp(str_X,"random")==0){
 			  fill_random_matrix(X,n,m);   
-			  std::cout<<"X gets random float values \n";
+			  std::cout<<" X gets random float values \n";
     }
     else{
 	if(!read_matrix_from_file(X,str_X,X->size1,X->size2)){ return 0;}
-			  std::cout<<"X gets values from file "<<str_X<<"\n";
+			  std::cout<<" X gets values from file "<<str_X<<"\n";
     }	
     
     if (strcmp(str_Y,"random")==0){
 			  fill_random_matrix(Y,n,1);
-			  std::cout<<"Y gets random float values \n";
+			  std::cout<<" Y gets random float values \n";
     }
     else{
 	if(!read_matrix_from_file(Y,str_Y,Y->size1,Y->size2)){ return 0;}
-			  std::cout<<"Y gets values from file "<<str_Y<<"\n";
+			  std::cout<<" Y gets values from file "<<str_Y<<"\n";
 	}
 //print_matrix_in_file(Y,str_OUT);
 
@@ -128,7 +113,7 @@ int main(int arg, char *argc[])
     
     auto stop = std::chrono::high_resolution_clock::now();
     duration =std::chrono::duration_cast<std::chrono::seconds>(stop-start);
-    std::cout<<"Time spent in computation: "<<duration.count()<<" seconds"<<std::endl;
+    std::cout<<" Time spent in computation: "<<duration.count()<<" seconds"<<std::endl;
     
      if(strcmp(str_OUT,"display")==0)
 		print_matrix(C);
@@ -137,7 +122,7 @@ int main(int arg, char *argc[])
     gsl_matrix_free(C);
     
     duration =std::chrono::duration_cast<std::chrono::seconds>(stop-begin);
-    std::cout<<"Run time estOLS Application: "<<duration.count()<<" seconds"<<std::endl;
+    std::cout<<" Run time estOLS Application: "<<duration.count()<<" seconds"<<std::endl;
   
     return 0;
 }

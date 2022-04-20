@@ -7,21 +7,24 @@
     //!
     //! @brief This is a header file that contains supporting functions for main.cc 
     //! @author Saksham Phul
+    //! @copyright Saksham Phul
     //!
  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*    
-void write_file(gsl_matrix *C){
-	    FILE *in_file;
-	   
-	    in_file=fopen("RESULT","w+");
-	    if(in_file!=NULL){
-		//	  fputs("Final matrix: \n",in_file);		  
-			  gsl_matrix_fprintf(in_file,C,"%f");
-	    }
-	    std::cout<<"final result written in the RESULT file \n";	
-   
+
+void help_function(const int carry)
+{
+  	std::cout<<"-help: will provide essential details to run this application \n";
+	if(carry==1){
+	  	std::cout<<"Flags that will help run this application are as follows:\n";
+		std::cout<<"-x: takes a filename name as a input and set up the X matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
+    		std::cout<<"-y: takes a filename name as a input and set up the Y matrice. You can also use random keyword to fill these matrices with random values For example: -x random or -x filename. \n";
+    		std::cout<<"-size_n: provide the number of rows for matrix X and Y \n";
+    		std::cout<<"-size_m: provide the number of columns for matrix X \n";
+            std::cout<<"-o: provide the name of file to store the output. You can also use display keyword to print final output on the screen. For example -o display \n";
+            std::cout<<"Command line format: ./estOLS -x X_file -y Y_file -size_n 10000 -size_m 500 -o result \n";
+	}
 }
-*/
+
 bool read_file(gsl_matrix *C,char str[]){
 	    FILE *in_file=fopen(str,"r");
 	    if(in_file!=NULL){
@@ -124,3 +127,16 @@ gsl_matrix *invert_a_matrix(gsl_matrix *matrix,size_t size)
 	    gsl_permutation_free(p);
 	    return inverse;
 }
+/*    
+void write_file(gsl_matrix *C){
+	    FILE *in_file;
+	   
+	    in_file=fopen("RESULT","w+");
+	    if(in_file!=NULL){
+		//	  fputs("Final matrix: \n",in_file);		  
+			  gsl_matrix_fprintf(in_file,C,"%f");
+	    }
+	    std::cout<<"final result written in the RESULT file \n";	
+   
+}
+*/
