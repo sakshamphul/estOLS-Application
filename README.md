@@ -62,7 +62,7 @@ Add the following line at the end of the .bashrc file:
     
 run bashrc file to update your changes:
     source /etc/.bashrc
-    
+
 **estOLS: A C++ based command line application**
 
 It's a pre compiled application. Hence, all you need is estOLS executable to run it.
