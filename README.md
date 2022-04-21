@@ -31,7 +31,7 @@ Installation will write files to {absolute_path_to_installation_folder}. Therefo
 
     make install
 
-GNU installation is complete
+GNU scientific installation is complete
 
 Create a folder and clone estOLS respo: 
 
@@ -75,7 +75,8 @@ To run OLS computation
 
      estOLS -x FILENAME_X_MATRIX -Y FILENAME_Y_MATRIX -size_n INT -size_m INT -o display
 
-Use X_50_10 & Y_10_1 to look at the format of the input file for X and Y respectively.
+Use X_50_10 and Y_10_1 file to get a sense at the format of the input files for X and Y matrices respectively.
+
 To run OLS computation with randomly set values for matrix X and Y, replace FILENAME with "random" keyword:
 
      estOLS -x random -Y random -size_n INT -size_m INT -o output_filename
