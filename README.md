@@ -65,7 +65,7 @@ run bashrc file to update your changes:
     
 We have set up our environment and compiled estOLS. Let's explore how can we use this application to compute OLS 
 
-**Welcome to estOLS: A C++ based command line application**
+## Welcome to estOLS: A C++ based command line application
 
 It's a pre compiled application. Hence, all you need is estOLS executable to run it.
 
