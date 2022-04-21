@@ -1,4 +1,4 @@
-# estOLS: A C/C++ based command line application to compute ordinary least square)
+# estOLS: A C/C++ based command line application to compute ordinary least square(OLS)
 This application calculates the ordinary least squares estimates from matrix vector operations using GNU scientific library. The equation for OLS is as follows:
 
 <img src="https://render.githubusercontent.com/render/math?math=OLS = (X^T X)^{-1}X^TY">  where X is n x m matrix and Y is n x 1 vector. Given n >> m and m > 500
@@ -62,8 +62,10 @@ Add the following line at the end of the .bashrc file:
     
 run bashrc file to update your changes:
     source /etc/.bashrc
+    
+We have set up our environment and compiled estOLS. Let's explore how can we use this application to compute OLS 
 
-**estOLS: A C++ based command line application**
+**Welcome to estOLS: A C++ based command line application**
 
 It's a pre compiled application. Hence, all you need is estOLS executable to run it.
 
@@ -75,7 +77,7 @@ To run OLS computation
 
      estOLS -x FILENAME_X_MATRIX -Y FILENAME_Y_MATRIX -size_n INT -size_m INT -o display
 
-Use X_50_10 and Y_10_1 file to get a sense at the format of the input files for X and Y matrices respectively.
+Use X_50_10 and Y_10_1 files to get a sense at the format of the input files for X and Y matrices respectively.
 
 To run OLS computation with randomly set values for matrix X and Y, replace FILENAME with "random" keyword:
 
