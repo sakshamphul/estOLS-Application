@@ -15,11 +15,11 @@ Find the compressed file in .gz format and extract it in the folder where you wa
 
      tar -xf gsl-latest.tar.gz
 
-cd into gsl-2.*.* folder to install and create binaries to run our application
+cd into extracted gsl folder to install and create binaries to run our application
 
      cd gsl-2.*.*/
 
-Configure the GNU library for our workstation before installation:
+Configure the GNU library for our workstation before GNU-GSL installation:
 
     ./configure --prefix={absolute_path_to_installation_folder}
 
