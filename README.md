@@ -49,7 +49,7 @@ linking application with shared library requires path by application executable 
 
 To setup LD_LIBRARY_Path for current terminal session:
  
-    export LD_LIBRARY_Path=/ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/lib/
+    export LD_LIBRARY_Path={absolute_path_to_installation_folder}/gsl-2.7.1/gsl-install/lib/
 
 To add this session to your profile, navigate and open .bashrc file: (This is optional) 
     
@@ -58,7 +58,7 @@ To add this session to your profile, navigate and open .bashrc file: (This is op
 You would require root access to update .bashrc file.
 Add the following line at the end of the .bashrc file:
  
-    export LD_LIBRARY_Path=/ssd1/c++_bootcamp/assignment/gsl-2.7.1/gsl-install/lib/
+    export LD_LIBRARY_Path={absolute_path_to_installation_folder}/gsl-2.7.1/gsl-install/lib/
     
 run bashrc file to update your changes:
     source /etc/.bashrc
