@@ -45,7 +45,7 @@ Link our library with GNU libraries using following command:
 
     g++ -std=c++11 -L{absolute_path_to_installation_folder}/lib/ main.o -lgsl -lgslcblas -lm
 
-linking application with shared library requires path by application executable during runtime. Therefore, before we run our application we must provide our workstation with new LD_Library_Path to look for runtime libraries(shared libraries). You can either set up LD_LIBRARY_PATH in your bash profile or simply set up variable for current terminal session: 
+Linking application with shared library requires path by application executable during runtime. Therefore, before we run our application we must provide our workstation with new LD_Library_Path to look for runtime libraries(shared libraries). You can either set up LD_LIBRARY_PATH in your bash profile or simply set up variable for current terminal session: 
 
 To setup LD_LIBRARY_Path for current terminal session:
  
@@ -60,7 +60,7 @@ Add the following line at the end of the .bashrc file:
  
     export LD_LIBRARY_Path={absolute_path_to_installation_folder}/gsl-2.7.1/gsl-install/lib/
     
-run bashrc file to update your changes:
+Run bashrc file to update your changes:
     source /etc/.bashrc
     
 We have set up our environment and compiled estOLS. Let's explore how can we use this application to compute OLS 
