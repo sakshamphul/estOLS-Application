@@ -12,7 +12,7 @@ extern "C" {
     //!
     //! @brief This file contains the main function that control the flow of this application
     //! @author Saksham Phul
-    //! @copyright Saksham Phul
+    //! @contact phulsaksham2@gmail.com
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -24,7 +24,7 @@ int main(int arg, char *argc[])
      char* str_X;
      char* str_Y;
      char* str_OUT;
-     std::cout<<" Version 1.0.0 estOlS application\n @copyright: Saksham Phul \n Git repo: https://github.com/sakshamphul/estOLS-Application \n" ;
+     std::cout<<" Version 1.0.0 estOlS application \n Git repo: https://github.com/sakshamphul/estOLS-Application \n" ;
      if(arg<11){       
 		   if(arg==1)
 			  help_function(0);
