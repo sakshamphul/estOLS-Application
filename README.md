@@ -3,7 +3,7 @@ This application calculates the ordinary least squares estimates from matrix vec
 
 ![equation](https://github.com/sakshamphul/estOLS-Application/blob/main/equation.png)
 
-where X is n x m matrix and Y is n x 1 vector. Given n >> m and m > 500
+where X is n x m matrix and y is n x 1 vector. Given n >> m and m > 500
 
 **GNU scientific Library:** https://www.gnu.org/
 
