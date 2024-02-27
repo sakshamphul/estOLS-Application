@@ -1,7 +1,6 @@
 # estOLS: A C/C++ based command line application to compute ordinary least square(OLS)
 This application calculates the ordinary least squares estimates from matrix vector operations using GNU scientific library. The equation for OLS is as follows:
 
-<img src="https://render.githubusercontent.com/render/math?math=OLS = (X^T X)^{-1}X^TY">  
 ![equation](https://github.com/sakshamphul/estOLS-Application/blob/main/equation.png)
 
 where X is n x m matrix and Y is n x 1 vector. Given n >> m and m > 500
